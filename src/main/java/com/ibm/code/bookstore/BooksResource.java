@@ -2,10 +2,12 @@ package com.ibm.code.bookstore;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -31,9 +33,17 @@ public class BooksResource {
                                                          example = "Failed to obtain the list of books from the backend store")))
     })
     @GET
-    public List<Book> getBooks() {
-        return Arrays.asList(new Book("Mistrz i Małgorzata", "Michaił Bułhakow"),
+    public List<Book> getBooks(@QueryParam("author") String author) {
+        List<Book> list = Arrays.asList(new Book("Mistrz i Małgorzata", "Michaił Bułhakow"),
                 new Book("Skarb w Srebrnym Jeziorze", "Karol May"));
+        List<Book> filteredList = list;
+        if (author != null && !"".equals(author)) {
+            filteredList = list
+                    .stream()
+                    .filter(book -> book.getAuthor().toLowerCase().contains(author.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        return filteredList;
     }
 
 }
