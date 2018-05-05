@@ -1,9 +1,13 @@
 package com.ibm.code.bookstore;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 public class Book {
 
+    @Schema(required = true, description = "The full title of the book", example = "Pan Wołodyjowski")
     private String title;
 
+    @Schema(required = true, description = "The name and surname of the book's author", example = "Henryk Sienkiewicz")
     private String author;
 
     public Book(String title, String author) {
