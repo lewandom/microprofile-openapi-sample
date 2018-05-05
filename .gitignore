@@ -1,0 +1,11 @@
+# Gradle
+/.gradle/
+build/
+/gradle.properties
+
+# Eclipse
+bin/
+.settings/
+.project
+.classpath
+.factorypath
