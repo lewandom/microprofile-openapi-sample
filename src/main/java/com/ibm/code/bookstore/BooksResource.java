@@ -14,6 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -33,7 +34,8 @@ public class BooksResource {
                                                          example = "Failed to obtain the list of books from the backend store")))
     })
     @GET
-    public List<Book> getBooks(@QueryParam("author") String author) {
+    public List<Book> getBooks(@Parameter(description = "Filter returned books by author, case insensitive",
+                                          example = "sienkiewicz") @QueryParam("author") String author) {
         List<Book> list = Arrays.asList(new Book("Mistrz i Małgorzata", "Michaił Bułhakow"),
                 new Book("Skarb w Srebrnym Jeziorze", "Karol May"));
         List<Book> filteredList = list;
